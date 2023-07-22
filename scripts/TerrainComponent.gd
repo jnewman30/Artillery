@@ -1,4 +1,5 @@
 extends Node2D
+class_name TerrainComponent
 
 @export var terrain_shape: SS2D_Shape_Base
 @export var displacement = 360
@@ -8,17 +9,22 @@ extends Node2D
 @export var top_padding = 80
 @export var bottom_padding = 20
 
+
 var points = Array()
 var current_displacement
 
+
+signal terrain_generated(points: Array)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.generate()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+#func _process(delta):
+#	pass
 
 
 func generate():
@@ -53,8 +59,12 @@ func generate():
 	terrain_shape.generate_collision_points()
 	terrain_shape.set_as_dirty()
 	
+	terrain_generated.emit(points)
+
+
 func add_point(index: int, point: Vector2) -> void:
 	terrain_shape.add_point(point, index, index)
+
 
 func add_points():
 	var screenSize = get_viewport().get_visible_rect().size
@@ -72,6 +82,11 @@ func add_points():
 	points.append(old_points[old_points.size() - 1])
 	current_displacement *= pow(2.0, -smooth)
 
-func _input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		generate()
+
+#func _input(event):
+#	if event is InputEventMouseButton and event.is_pressed():
+#		generate()
+
+
+func _on_level_started():
+	generate()
