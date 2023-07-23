@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://crvyfn3fggij"]
+
+[ext_resource type="Script" path="res://scripts/TankComponent.gd" id="1_uhv34"]
+[ext_resource type="Texture2D" uid="uid://ckrt5idsj2gm" path="res://textures/terrain/tank1.png" id="2_uwk8p"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4gyla"]
+rough = true
+absorbent = true
+
+[node name="Tank" type="RigidBody2D"]
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_4gyla")
+lock_rotation = true
+script = ExtResource("1_uhv34")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 16)
+scale = Vector2(1, 1.03977)
+polygon = PackedVector2Array(-17, -1.9235, -15, -8.65576, -6, -14.4263, 6, -14.4263, 15, -8.65576, 17, -1.9235)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_uwk8p")

@@ -13,9 +13,9 @@ class_name TerrainComponent
 var points = Array()
 var current_displacement
 var screen_size: Vector2
+var player_positions = Array()
 
-
-signal terrain_generated(points: Array)
+signal terrain_generated(player_positions: Array)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,13 +35,13 @@ func _on_level_component_level_started(player_count):
 
 
 func generate(player_count: int):
-	var player_positions = generate_player_positions(player_count)
-	debug_player_positions(player_positions)
-	generate_map(player_positions)
+	generate_player_positions(player_count)
+	if debug_mode: debug_player_positions()
+	generate_map()
 	
 
 
-func debug_player_positions(player_positions: Array):
+func debug_player_positions():
 	for child in get_children():
 		if child is Line2D:
 			remove_child(child)
@@ -59,18 +59,17 @@ func debug_player_positions(player_positions: Array):
 
 func generate_player_positions(player_count: int):
 	randomize()
-	var positions = Array()
+	player_positions.clear()
 	var s = screen_size.x / player_count
 	for i in range(0, player_count):
 		var x = randi_range(0, s) + s * i
 		if (x < 64): x += 64
 		if (x > screen_size.x - 64): x -= 64
-		positions.append(Vector2(x, 0))
-	return positions
+		player_positions.append(Vector2(x, 0))
 	
 
 
-func generate_map(player_positions: Array):
+func generate_map():
 	var ss2d = self.terrain_shape
 	if not ss2d:
 		return
@@ -89,7 +88,7 @@ func generate_map(player_positions: Array):
 	for i in range(0, iterations):
 		add_points()
 
-	setup_player_positions(player_positions)
+	setup_player_positions()
 	
 	add_point(0, Vector2(0, screen_size.y + displacement))
 
@@ -103,7 +102,7 @@ func generate_map(player_positions: Array):
 	terrain_shape.generate_collision_points()
 	terrain_shape.set_as_dirty()
 	
-	terrain_generated.emit(points)
+	terrain_generated.emit(player_positions)
 
 
 func add_point(index: int, point: Vector2) -> void:
@@ -131,21 +130,27 @@ func _input(event):
 		generate(2)
 
 
-func setup_player_positions(player_positions: Array):
+func setup_player_positions():
 	for p_pos in player_positions:
 		var t_points = get_terrain_points(p_pos)
 		var max_y = 0
+		
 		for t_pos in t_points:
 			max_y = floor(max(max_y, t_pos.y))
+		
 		for t_pos in t_points:
 			var t_index = points.find(t_pos)
 			t_pos.y = max_y
 			points[t_index] = t_pos
 		
+		var p_index = player_positions.find(p_pos)
+		p_pos.y = max_y
+		player_positions[p_index] = p_pos
+		
 
 func get_terrain_points(pos: Vector2):
-	var min_x = pos.x - 24
-	var max_x = pos.x + 24
+	var min_x = pos.x - 30
+	var max_x = pos.x + 30
 	return points.filter(func(p: Vector2): return p.x >= min_x and p.x <= max_x)
 	
 
