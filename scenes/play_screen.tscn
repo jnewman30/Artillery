@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://c3b32br3ihdfo"]
+
+[node name="PlayScreen" type="Control"]
+z_index = 99
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="player_label_value" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1/PlayerMarginContainer"]
+layout_mode = 2
+text = "Player 1"
+uppercase = true
+
+[node name="AngleMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_right = 8
+
+[node name="angle_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1/AngleMarginContainer"]
+layout_mode = 2
+text = "Angle:"
+uppercase = true
+
+[node name="angle_value_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
+layout_mode = 2
+text = "270"
+
+[node name="PowerMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_right = 8
+
+[node name="power_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1/PowerMarginContainer"]
+layout_mode = 2
+text = "Power:"
+uppercase = true
+
+[node name="power_value_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
+layout_mode = 2
+text = "100"
+
+[node name="WeaponMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_right = 8
+
+[node name="weapon_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1/WeaponMarginContainer"]
+layout_mode = 2
+text = "Weapon:"
+uppercase = true
+
+[node name="weapon_value_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
+layout_mode = 2
+text = "Baby Missile"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="wind_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Wind:"
+uppercase = true
+
+[node name="WindMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer3/WindMarginContainer"]
+layout_mode = 2
+
+[node name="wind_label2" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer3/WindMarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "<"
+uppercase = true
+
+[node name="wind_label_value" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer3/WindMarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "100"
+uppercase = true

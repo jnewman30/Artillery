@@ -1,7 +1,7 @@
 extends Node2D
 class_name TerrainComponent
 
-@export var debug_mode = true
+@export var debug_mode = false
 @export var terrain_shape: SS2D_Shape_Base
 @export var displacement = 360
 @export var iterations = 7
