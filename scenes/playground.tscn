@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/TankSpawnerComponent.gd" id="5_v0ra2"]
 [ext_resource type="PackedScene" uid="uid://c3b32br3ihdfo" path="res://scenes/play_screen.tscn" id="6_p2tr6"]
 
-[node name="Level2" type="Control"]
+[node name="Root" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
