@@ -1,4 +1,5 @@
 extends Node2D
+class_name SkyComponent
 
 @export var texture: Texture2D
 @export var texture_rect : TextureRect

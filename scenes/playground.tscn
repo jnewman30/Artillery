@@ -1,12 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2x2mu7r6st1a"]
+[gd_scene load_steps=4 format=3 uid="uid://b2x2mu7r6st1a"]
 
-[ext_resource type="Script" path="res://scripts/LevelComponent.gd" id="1_4woe7"]
+[ext_resource type="PackedScene" uid="uid://dvb61j3pipkry" path="res://scenes/level.tscn" id="1_5wki8"]
 [ext_resource type="PackedScene" uid="uid://byn3loosisf2a" path="res://scenes/sky.tscn" id="1_614fl"]
 [ext_resource type="PackedScene" uid="uid://mxmhb2alrry2" path="res://scenes/terrain.tscn" id="2_luqii"]
-[ext_resource type="Texture2D" uid="uid://ckrt5idsj2gm" path="res://textures/terrain/tank1.png" id="3_vilyj"]
-[ext_resource type="Script" path="res://scripts/PlacementComponent.gd" id="5_doicb"]
 
-[node name="Level" type="Control"]
+[node name="Level2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,30 +14,14 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LevelComponent" type="Node2D" parent="."]
-script = ExtResource("1_4woe7")
+[node name="Level" parent="." instance=ExtResource("1_5wki8")]
 
-[node name="Sky" parent="." instance=ExtResource("1_614fl")]
+[node name="SkyLayer" type="CanvasLayer" parent="."]
 
-[node name="Terrain" parent="." instance=ExtResource("2_luqii")]
+[node name="Sky" parent="SkyLayer" instance=ExtResource("1_614fl")]
 
-[node name="Tank" type="RigidBody2D" parent="."]
-position = Vector2(584, 29)
-freeze = true
+[node name="TerrainLayer" type="CanvasLayer" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Tank"]
-texture = ExtResource("3_vilyj")
-offset = Vector2(0, -15)
+[node name="Terrain" parent="TerrainLayer" instance=ExtResource("2_luqii")]
 
-[node name="PlacementComponent" type="Node2D" parent="Tank" node_paths=PackedStringArray("parent")]
-script = ExtResource("5_doicb")
-parent = NodePath("..")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tank"]
-position = Vector2(-2.08616e-07, 0.59659)
-scale = Vector2(1.04167, 1.07955)
-polygon = PackedVector2Array(-15, -2, -14, -7, -8, -12, 0, -13, 7, -12, 14, -7, 15, -2)
-
-[connection signal="Level_Started" from="LevelComponent" to="Terrain" method="_on_level_started"]
-[connection signal="Level_Started" from="LevelComponent" to="Tank/PlacementComponent" method="_on_level_started"]
-[connection signal="terrain_generated" from="Terrain" to="Tank/PlacementComponent" method="_on_terrain_generated"]
+[connection signal="Level_Started" from="Level" to="TerrainLayer/Terrain" method="_on_level_component_level_started"]
