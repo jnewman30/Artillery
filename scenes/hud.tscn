@@ -1,6 +1,66 @@
-[gd_scene format=3 uid="uid://c3b32br3ihdfo"]
+[gd_scene load_steps=6 format=3 uid="uid://c3b32br3ihdfo"]
 
-[node name="PlayScreen" type="Control"]
+[ext_resource type="Script" path="res://scripts/HudComponent.gd" id="1_8pbef"]
+[ext_resource type="Script" path="res://scripts/EventManagerComponent.gd" id="2_oi4cy"]
+
+[sub_resource type="GDScript" id="GDScript_4kmm0"]
+resource_name = "angle_value_handler"
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_hud_adjust_angle(angle):
+	text = \"%d\" % angle
+"
+
+[sub_resource type="GDScript" id="GDScript_g53ab"]
+resource_name = "power_value_handler"
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_hud_adjust_power(power: int):
+	text = \"%d\" % power
+"
+
+[sub_resource type="GDScript" id="GDScript_vwij3"]
+resource_name = "weapon_value_handler"
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_hud_adjust_weapon(weapon):
+	text = \"%d\" % weapon
+"
+
+[node name="Hud" type="Control" node_paths=PackedStringArray("event_manager")]
 z_index = 99
 layout_mode = 3
 anchors_preset = 15
@@ -8,6 +68,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8pbef")
+event_manager = NodePath("EventManagerComponent")
+
+[node name="EventManagerComponent" type="Node" parent="."]
+script = ExtResource("2_oi4cy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -53,6 +118,7 @@ uppercase = true
 [node name="angle_value_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
 layout_mode = 2
 text = "270"
+script = SubResource("GDScript_4kmm0")
 
 [node name="PowerMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
 layout_mode = 2
@@ -67,6 +133,7 @@ uppercase = true
 [node name="power_value_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
 layout_mode = 2
 text = "100"
+script = SubResource("GDScript_g53ab")
 
 [node name="WeaponMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
 layout_mode = 2
@@ -81,6 +148,7 @@ uppercase = true
 [node name="weapon_value_label" type="Label" parent="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1"]
 layout_mode = 2
 text = "Baby Missile"
+script = SubResource("GDScript_vwij3")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer/GridContainer"]
 layout_mode = 2
@@ -113,3 +181,8 @@ uppercase = true
 layout_mode = 2
 text = "100"
 uppercase = true
+
+[connection signal="adjust_angle" from="." to="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1/angle_value_label" method="_on_hud_adjust_angle"]
+[connection signal="adjust_power" from="." to="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1/power_value_label" method="_on_hud_adjust_power"]
+[connection signal="adjust_weapon" from="." to="VBoxContainer/PanelContainer/GridContainer/HBoxContainer1/weapon_value_label" method="_on_hud_adjust_weapon"]
+[connection signal="on_game_event" from="EventManagerComponent" to="." method="_on_game_event"]

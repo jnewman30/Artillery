@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2x2mu7r6st1a"]
+[gd_scene load_steps=6 format=3 uid="uid://b2x2mu7r6st1a"]
 
 [ext_resource type="PackedScene" uid="uid://dvb61j3pipkry" path="res://scenes/level.tscn" id="1_5krk1"]
 [ext_resource type="PackedScene" uid="uid://byn3loosisf2a" path="res://scenes/sky.tscn" id="2_bwgnq"]
 [ext_resource type="PackedScene" uid="uid://mxmhb2alrry2" path="res://scenes/terrain.tscn" id="3_hkbya"]
 [ext_resource type="PackedScene" uid="uid://ctsvsgfjfaqwk" path="res://scenes/tank_spawner.tscn" id="4_4tmpy"]
-[ext_resource type="Script" path="res://scripts/TankSpawnerComponent.gd" id="5_206wt"]
 [ext_resource type="PackedScene" uid="uid://c3b32br3ihdfo" path="res://scenes/hud.tscn" id="6_rqptu"]
 
 [node name="Root" type="Control"]
@@ -17,18 +16,14 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Level" parent="." instance=ExtResource("1_5krk1")]
+[node name="Level" parent="." groups=["Level"] instance=ExtResource("1_5krk1")]
 
 [node name="Sky" parent="." instance=ExtResource("2_bwgnq")]
 z_index = -1
 
-[node name="Terrain" parent="." instance=ExtResource("3_hkbya")]
+[node name="Terrain" parent="." groups=["Terrain"] instance=ExtResource("3_hkbya")]
 
 [node name="TankSpawner" parent="." instance=ExtResource("4_4tmpy")]
-script = ExtResource("5_206wt")
 
 [node name="Hud" parent="." instance=ExtResource("6_rqptu")]
 layout_mode = 1
-
-[connection signal="Level_Started" from="Level" to="Terrain" method="_on_level_component_level_started"]
-[connection signal="terrain_generated" from="Terrain" to="TankSpawner" method="_on_terrain_generated"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://crvyfn3fggij"]
+[gd_scene load_steps=6 format=3 uid="uid://crvyfn3fggij"]
 
 [ext_resource type="Script" path="res://scripts/TankComponent.gd" id="1_uhv34"]
 [ext_resource type="Texture2D" uid="uid://ckrt5idsj2gm" path="res://textures/terrain/tank1.png" id="2_uwk8p"]
+[ext_resource type="Script" path="res://scripts/PlayerComponent.gd" id="3_bwlag"]
+[ext_resource type="Script" path="res://scripts/EventManagerComponent.gd" id="4_qkxde"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4gyla"]
 rough = true
@@ -13,6 +15,13 @@ physics_material_override = SubResource("PhysicsMaterial_4gyla")
 lock_rotation = true
 script = ExtResource("1_uhv34")
 
+[node name="EventManagerComponent" type="Node" parent="."]
+script = ExtResource("4_qkxde")
+
+[node name="PlayerComponent" type="Node" parent="." node_paths=PackedStringArray("event_manager")]
+script = ExtResource("3_bwlag")
+event_manager = NodePath("../EventManagerComponent")
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, 16)
 scale = Vector2(1, 1.03977)
@@ -20,3 +29,6 @@ polygon = PackedVector2Array(-17, -1.9235, -15, -8.65576, -6, -14.4263, 6, -14.4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_uwk8p")
+
+[connection signal="tank_spawned" from="." to="PlayerComponent" method="_on_tank_tank_spawned"]
+[connection signal="on_game_event" from="EventManagerComponent" to="PlayerComponent" method="_on_game_event"]

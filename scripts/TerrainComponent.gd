@@ -1,6 +1,8 @@
 extends Node2D
 class_name TerrainComponent
 
+@export var event_manager: EventManagerComponent
+
 @export var debug_mode = false
 @export var terrain_shape: SS2D_Shape_Base
 @export var displacement = 360
@@ -15,8 +17,6 @@ var current_displacement
 var screen_size: Vector2
 var player_positions = Array()
 
-signal terrain_generated(player_positions: Array)
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,10 +28,14 @@ func _ready():
 #	pass
 
 
-func _on_level_component_level_started(player_count):
-	screen_size = get_viewport().get_visible_rect().size
-	generate(player_count)
-	
+func _on_game_event(event: String, args: Dictionary):
+	match event:
+		"level_start":
+			screen_size = get_viewport().get_visible_rect().size
+			var level = args["level"] as LevelComponent
+			generate(level.player_count)
+		_:
+			pass
 
 
 func generate(player_count: int):
@@ -102,7 +106,7 @@ func generate_map():
 	terrain_shape.generate_collision_points()
 	terrain_shape.set_as_dirty()
 	
-	terrain_generated.emit(player_positions)
+	event_manager.broadcast_event("terrain_generated", { "player_positions": player_positions })
 
 
 func add_point(index: int, point: Vector2) -> void:

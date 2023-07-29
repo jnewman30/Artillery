@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://mxmhb2alrry2"]
+[gd_scene load_steps=16 format=3 uid="uid://mxmhb2alrry2"]
 
 [ext_resource type="Script" path="res://scripts/TerrainComponent.gd" id="1_64p0r"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="2_oe2d1"]
+[ext_resource type="Script" path="res://scripts/EventManagerComponent.gd" id="2_v0giv"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/point_array.gd" id="3_1yra2"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="4_ccdg1"]
 [ext_resource type="Texture2D" uid="uid://brqa36885pfqu" path="res://textures/terrain/ground.png" id="5_2yetc"]
@@ -55,9 +56,13 @@ fill_texture_show_behind_parent = false
 fill_mesh_offset = 0.0
 render_offset = 0.0
 
-[node name="Terrain" type="StaticBody2D" node_paths=PackedStringArray("terrain_shape")]
+[node name="Terrain" type="StaticBody2D" node_paths=PackedStringArray("event_manager", "terrain_shape")]
 script = ExtResource("1_64p0r")
+event_manager = NodePath("EventManagerComponent")
 terrain_shape = NodePath("SS2D_Shape_Closed")
+
+[node name="EventManagerComponent" type="Node" parent="."]
+script = ExtResource("2_v0giv")
 
 [node name="SS2D_Shape_Closed" type="Node2D" parent="."]
 script = ExtResource("2_oe2d1")
@@ -66,4 +71,5 @@ shape_material = SubResource("Resource_i7n0m")
 collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-z_as_relative = false
+
+[connection signal="on_game_event" from="EventManagerComponent" to="." method="_on_game_event"]
