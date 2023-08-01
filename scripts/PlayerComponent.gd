@@ -11,7 +11,7 @@ class_name PlayerComponent
 
 const max_angle: int = 359
 var is_human: bool = false
-
+var player_number: int = 0
 
 func _ready():
 	event_manager.broadcast_event("adjust_power", { "power": power })
@@ -42,6 +42,14 @@ func _input(event: InputEvent):
 		adjust_weapon(1)
 	if event.is_action_pressed("Weapon_Dec", false, true):
 		adjust_weapon(-1)
+	if event.is_action_pressed("Fire", false, true):
+		event_manager.broadcast_event("fire", {
+			"player": player_number,
+			"power": power,
+			"angle": angle,
+			"weapon": weapon
+		})
+	
 
 
 func adjust_power(amount: int):
@@ -51,7 +59,7 @@ func adjust_power(amount: int):
 	if (power < 0): power = 0
 	if last_power == power:
 		return
-	event_manager.broadcast_event("adjust_power", { "power": power })
+	event_manager.broadcast_event("adjust_power", { "player": player_number, "power": power })
 
 
 func adjust_angle(deg: int):
@@ -61,7 +69,7 @@ func adjust_angle(deg: int):
 	if angle < 0: angle = 0
 	if last_angle == angle:
 		return
-	event_manager.broadcast_event("adjust_angle", { "angle": angle })
+	event_manager.broadcast_event("adjust_angle", { "player": player_number, "angle": angle })
 
 
 func adjust_weapon(inc: int):
@@ -71,13 +79,14 @@ func adjust_weapon(inc: int):
 	if weapon < 0: weapon = 0
 	if last_weapon == weapon:
 		return
-	event_manager.broadcast_event("adjust_weapon", { "weapon": weapon })
+	event_manager.broadcast_event("adjust_weapon", { "player": player_number, "weapon": weapon })
 
 
 func _on_game_event(_event: String, _args: Dictionary):
 	pass
 
 
-func _on_tank_tank_spawned(_is_human):
-	is_human = _is_human
+func _on_tank_tank_spawned(tank: TankComponent):
+	is_human = tank.is_human
+	player_number = tank.player_number
 

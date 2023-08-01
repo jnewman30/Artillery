@@ -41,8 +41,10 @@ func spawn_tanks(player_positions: Array):
 		tank.position = Vector2(p_pos.x, p_pos.y - 20)
 		tank.z_index = 1
 		
+		var tankComponent = tank as TankComponent
+		tankComponent.player_number = p_index
 		if p_index == 0:
-			(tank as TankComponent).is_human = true
+			tankComponent.is_human = true
 		
 		add_sibling.call_deferred(tank)
 		

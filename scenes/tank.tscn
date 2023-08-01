@@ -31,4 +31,5 @@ polygon = PackedVector2Array(-17, -1.9235, -15, -8.65576, -6, -14.4263, 6, -14.4
 texture = ExtResource("2_uwk8p")
 
 [connection signal="tank_spawned" from="." to="PlayerComponent" method="_on_tank_tank_spawned"]
+[connection signal="on_game_event" from="EventManagerComponent" to="." method="_on_event_manager_component_on_game_event"]
 [connection signal="on_game_event" from="EventManagerComponent" to="PlayerComponent" method="_on_game_event"]
