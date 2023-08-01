@@ -8,7 +8,7 @@ signal on_game_event(event: String, args: Dictionary)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.5).timeout
 	broadcast_event("level_start", { "level": self })
 	get_viewport().connect("size_changed", _on_viewport_resize)
 

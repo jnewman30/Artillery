@@ -21,7 +21,7 @@ func _ready():
 func _physics_process(_delta):
 	if not started:
 		started = true
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.25).timeout
 		freeze = false
 
 
