@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://wgd08dgln0qo"]
+[gd_scene load_steps=8 format=3 uid="uid://wgd08dgln0qo"]
 
 [ext_resource type="PackedScene" uid="uid://djwcepyy3snch" path="res://scenes/ui/start_screen.tscn" id="1_xuefc"]
+[ext_resource type="Texture2D" uid="uid://cdo0obgcjsj81" path="res://images/treads.jpg" id="2_kykco"]
 [ext_resource type="PackedScene" uid="uid://djqhfdulyjetf" path="res://scenes/ui/play_screen.tscn" id="2_q4mmi"]
 [ext_resource type="Script" path="res://scenes/ui/start_screen.gd" id="2_tayus"]
 [ext_resource type="PackedScene" uid="uid://cfeo8hsl056we" path="res://scenes/ui/options_screen.tscn" id="3_a6vwh"]
@@ -16,6 +17,17 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -99
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kykco")
+metadata/_edit_use_anchors_ = true
 
 [node name="Start Screen" parent="." node_paths=PackedStringArray("play_screen", "options_screen", "quit_dialog") instance=ExtResource("1_xuefc")]
 layout_mode = 1
