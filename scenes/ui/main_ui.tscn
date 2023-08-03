@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://wgd08dgln0qo"]
+
+[ext_resource type="PackedScene" uid="uid://djwcepyy3snch" path="res://scenes/ui/start_screen.tscn" id="1_xuefc"]
+[ext_resource type="PackedScene" uid="uid://djqhfdulyjetf" path="res://scenes/ui/play_screen.tscn" id="2_q4mmi"]
+[ext_resource type="Script" path="res://scenes/ui/start_screen.gd" id="2_tayus"]
+[ext_resource type="PackedScene" uid="uid://cfeo8hsl056we" path="res://scenes/ui/options_screen.tscn" id="3_a6vwh"]
+[ext_resource type="Script" path="res://scenes/ui/play_screen.gd" id="4_xmeec"]
+[ext_resource type="Script" path="res://scenes/ui/options_screen.gd" id="6_d7ra2"]
+
+[node name="Main UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Start Screen" parent="." node_paths=PackedStringArray("play_screen", "options_screen", "quit_dialog") instance=ExtResource("1_xuefc")]
+layout_mode = 1
+script = ExtResource("2_tayus")
+play_screen = NodePath("../Play Screen")
+options_screen = NodePath("../Options Screen")
+quit_dialog = NodePath("../Confirm Dialog")
+
+[node name="Play Screen" parent="." node_paths=PackedStringArray("start_screen") instance=ExtResource("2_q4mmi")]
+visible = false
+layout_mode = 1
+script = ExtResource("4_xmeec")
+start_screen = NodePath("../Start Screen")
+
+[node name="Options Screen" parent="." node_paths=PackedStringArray("start_screen") instance=ExtResource("3_a6vwh")]
+visible = false
+layout_mode = 1
+script = ExtResource("6_d7ra2")
+start_screen = NodePath("../Start Screen")
+
+[node name="Confirm Dialog" type="ConfirmationDialog" parent="."]
+transparent_bg = true
+title = "Exit Game"
+initial_position = 4
+size = Vector2i(320, 100)
+unresizable = true
+always_on_top = true
+transparent = true
+ok_button_text = "YES"
+dialog_text = "Are you sure?"
+cancel_button_text = "No"
+
+[connection signal="pressed" from="Start Screen/PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Menu VBox/Play" to="Start Screen" method="_on_play_pressed"]
+[connection signal="pressed" from="Start Screen/PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Menu VBox/Options" to="Start Screen" method="_on_options_pressed"]
+[connection signal="pressed" from="Start Screen/PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Menu VBox/Exit" to="Start Screen" method="_on_exit_pressed"]
+[connection signal="pressed" from="Play Screen/MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer/Back" to="Start Screen" method="_on_play_screen_back_pressed"]
+[connection signal="pressed" from="Play Screen/MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer/Play" to="Start Screen" method="_on_play_screen_play_pressed"]
+[connection signal="pressed" from="Options Screen/Options Container/Options VBox/Action Container/Action HBox/Back" to="Start Screen" method="_on_options_screen_back_pressed"]
+[connection signal="pressed" from="Options Screen/Options Container/Options VBox/Action Container/Action HBox/Apply" to="Start Screen" method="_on_options_screen_apply_pressed"]
+[connection signal="confirmed" from="Confirm Dialog" to="Start Screen" method="_on_quit_dialog_confirmed"]
+
+[editable path="Start Screen"]
+[editable path="Play Screen"]
+[editable path="Options Screen"]

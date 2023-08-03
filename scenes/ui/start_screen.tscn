@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=3 uid="uid://djwcepyy3snch"]
+
+[ext_resource type="StyleBox" uid="uid://cqb360y13gqgo" path="res://scenes/ui/panel_style.tres" id="2_j7dqj"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_dl84g"]
+
+[node name="Start Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_dl84g")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_j7dqj")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+metadata/_edit_use_anchors_ = true
+
+[node name="Title Container" type="MarginContainer" parent="PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 32
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Title Container"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "Artillery"
+horizontal_alignment = 1
+
+[node name="Menu VBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="Play" type="Button" parent="PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Menu VBox"]
+layout_mode = 2
+text = "Play"
+alignment = 0
+
+[node name="Options" type="Button" parent="PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Menu VBox"]
+layout_mode = 2
+text = "Options"
+alignment = 0
+
+[node name="Exit" type="Button" parent="PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Menu VBox"]
+layout_mode = 2
+text = "Exit"
+alignment = 0
+
+[node name="Bottom Container" type="MarginContainer" parent="PanelContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 32

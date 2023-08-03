@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfeo8hsl056we"]
+
+[ext_resource type="StyleBox" uid="uid://cqb360y13gqgo" path="res://scenes/ui/panel_style.tres" id="1_045vk"]
+
+[node name="Options Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options Container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Options Panel" type="Panel" parent="Options Container"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_045vk")
+
+[node name="Options VBox" type="VBoxContainer" parent="Options Container"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Options Container/Options VBox"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Option Tabs" type="TabContainer" parent="Options Container/Options VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Video" type="MarginContainer" parent="Options Container/Options VBox/Option Tabs"]
+layout_mode = 2
+
+[node name="Audio" type="MarginContainer" parent="Options Container/Options VBox/Option Tabs"]
+visible = false
+layout_mode = 2
+
+[node name="Key Bindings" type="MarginContainer" parent="Options Container/Options VBox/Option Tabs"]
+visible = false
+layout_mode = 2
+
+[node name="Action Container" type="MarginContainer" parent="Options Container/Options VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Action HBox" type="HBoxContainer" parent="Options Container/Options VBox/Action Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 256
+
+[node name="Back" type="Button" parent="Options Container/Options VBox/Action Container/Action HBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Back"
+
+[node name="Apply" type="Button" parent="Options Container/Options VBox/Action Container/Action HBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "Apply"
