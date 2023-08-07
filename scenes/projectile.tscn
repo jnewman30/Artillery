@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdj11dlwcjnr0"]
+
+[ext_resource type="Script" path="res://scripts/Projectile.gd" id="1_x1qi3"]
+[ext_resource type="Texture2D" uid="uid://daghao4nrgk7r" path="res://images/ball.png" id="2_yxsyh"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a37iu"]
+absorbent = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bi5kd"]
+radius = 4.0
+
+[node name="Projectile" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_a37iu")
+max_contacts_reported = 3
+contact_monitor = true
+script = ExtResource("1_x1qi3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_yxsyh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bi5kd")

@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2x2mu7r6st1a"]
+[gd_scene load_steps=9 format=3 uid="uid://b2x2mu7r6st1a"]
 
 [ext_resource type="PackedScene" uid="uid://dvb61j3pipkry" path="res://scenes/level.tscn" id="1_5krk1"]
 [ext_resource type="PackedScene" uid="uid://byn3loosisf2a" path="res://scenes/sky.tscn" id="2_bwgnq"]
 [ext_resource type="PackedScene" uid="uid://mxmhb2alrry2" path="res://scenes/terrain.tscn" id="3_hkbya"]
 [ext_resource type="PackedScene" uid="uid://ctsvsgfjfaqwk" path="res://scenes/tank_spawner.tscn" id="4_4tmpy"]
 [ext_resource type="PackedScene" uid="uid://c3b32br3ihdfo" path="res://scenes/hud.tscn" id="6_rqptu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_72tw4"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jil3p"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_65dxv"]
 
 [node name="Root" type="Control"]
 layout_mode = 3
@@ -27,3 +35,16 @@ z_index = -1
 
 [node name="Hud" parent="." instance=ExtResource("6_rqptu")]
 layout_mode = 1
+
+[node name="LevelBody" type="RigidBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="LevelBody"]
+shape = SubResource("WorldBoundaryShape2D_72tw4")
+
+[node name="Right" type="CollisionShape2D" parent="LevelBody"]
+position = Vector2(1280, 0)
+shape = SubResource("WorldBoundaryShape2D_jil3p")
+
+[node name="Bottom" type="CollisionShape2D" parent="LevelBody"]
+position = Vector2(0, 854)
+shape = SubResource("WorldBoundaryShape2D_65dxv")

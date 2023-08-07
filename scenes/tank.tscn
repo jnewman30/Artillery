@@ -18,9 +18,10 @@ script = ExtResource("1_uhv34")
 [node name="EventManagerComponent" type="Node" parent="."]
 script = ExtResource("4_qkxde")
 
-[node name="PlayerComponent" type="Node" parent="." node_paths=PackedStringArray("event_manager")]
+[node name="PlayerComponent" type="Node" parent="." node_paths=PackedStringArray("event_manager", "fire_line")]
 script = ExtResource("3_bwlag")
 event_manager = NodePath("../EventManagerComponent")
+fire_line = NodePath("../Line2D")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, 16)
@@ -29,6 +30,15 @@ polygon = PackedVector2Array(-17, -1.9235, -15, -8.65576, -6, -14.4263, 6, -14.4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_uwk8p")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, -10)
+width = 3.0
+default_color = Color(1, 0, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
 
 [connection signal="tank_spawned" from="." to="PlayerComponent" method="_on_tank_tank_spawned"]
 [connection signal="on_game_event" from="EventManagerComponent" to="." method="_on_event_manager_component_on_game_event"]
