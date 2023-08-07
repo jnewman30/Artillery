@@ -9,7 +9,7 @@
 rough = true
 absorbent = true
 
-[node name="Tank" type="RigidBody2D"]
+[node name="Tank" type="RigidBody2D" groups=["Vehichles"]]
 mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_4gyla")
 lock_rotation = true

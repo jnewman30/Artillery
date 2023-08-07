@@ -9,7 +9,7 @@ absorbent = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_bi5kd"]
 radius = 4.0
 
-[node name="Projectile" type="RigidBody2D"]
+[node name="Projectile" type="RigidBody2D" groups=["Projectile"]]
 physics_material_override = SubResource("PhysicsMaterial_a37iu")
 max_contacts_reported = 3
 contact_monitor = true
@@ -21,3 +21,5 @@ texture = ExtResource("2_yxsyh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bi5kd")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
