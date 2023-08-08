@@ -23,6 +23,4 @@ func _on_body_shape_entered(body_rid, body: PhysicsBody2D, body_shape_index, loc
 	if body_groups.find("Vehichles") >= 0:
 		print_debug("Vehichle Collision!")
 	
-#	print_debug("collision body: ", body)
-#	print_debug("groups: ", body_groups)
 	queue_free()

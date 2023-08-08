@@ -74,20 +74,18 @@ func generate_player_positions(player_count: int):
 
 
 func generate_map():
-	var ss2d = self.terrain_shape
-	if not ss2d:
-		return
-
+	if not terrain_shape: return
+	
 	current_displacement = displacement
 	
 	randomize()
 	
+	terrain_shape.clear_points()
+	terrain_shape.begin_update()
+		
 	points.clear()
 	points.append(Vector2(0, randi_range(height-displacement, height+displacement)))
 	points.append(Vector2(screen_size.x, randi_range(height-displacement, height+displacement)))
-
-	terrain_shape.clear_points()
-	terrain_shape.begin_update()
 
 	for i in range(0, iterations):
 		add_points()

@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://wgd08dgln0qo"]
+[gd_scene load_steps=10 format=3 uid="uid://wgd08dgln0qo"]
 
 [ext_resource type="PackedScene" uid="uid://djwcepyy3snch" path="res://scenes/ui/start_screen.tscn" id="1_xuefc"]
-[ext_resource type="Texture2D" uid="uid://cdo0obgcjsj81" path="res://images/treads.jpg" id="2_kykco"]
 [ext_resource type="PackedScene" uid="uid://djqhfdulyjetf" path="res://scenes/ui/play_screen.tscn" id="2_q4mmi"]
 [ext_resource type="Script" path="res://scenes/ui/start_screen.gd" id="2_tayus"]
 [ext_resource type="PackedScene" uid="uid://cfeo8hsl056we" path="res://scenes/ui/options_screen.tscn" id="3_a6vwh"]
+[ext_resource type="StyleBox" uid="uid://dgi0jgjluc0ck" path="res://scenes/ui/panel_style_dark.tres" id="4_n44by"]
 [ext_resource type="Script" path="res://scenes/ui/play_screen.gd" id="4_xmeec"]
 [ext_resource type="Script" path="res://scenes/ui/options_screen.gd" id="6_d7ra2"]
+[ext_resource type="Texture2D" uid="uid://drwxhq5ef760e" path="res://images/metal_bare_small_seamless.jpg" id="8_7qqbd"]
+
+[sub_resource type="Theme" id="Theme_pu57t"]
 
 [node name="Main UI" type="Control"]
 layout_mode = 3
@@ -20,13 +23,15 @@ size_flags_vertical = 3
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -99
+texture_repeat = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_kykco")
+texture = ExtResource("8_7qqbd")
+stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Start Screen" parent="." node_paths=PackedStringArray("play_screen", "options_screen", "quit_dialog") instance=ExtResource("1_xuefc")]
@@ -36,11 +41,18 @@ play_screen = NodePath("../Play Screen")
 options_screen = NodePath("../Options Screen")
 quit_dialog = NodePath("../Confirm Dialog")
 
+[node name="Panel" parent="Start Screen/PanelContainer/MarginContainer" index="0"]
+texture_repeat = 2
+theme_override_styles/panel = ExtResource("4_n44by")
+
 [node name="Play Screen" parent="." node_paths=PackedStringArray("start_screen") instance=ExtResource("2_q4mmi")]
 visible = false
 layout_mode = 1
 script = ExtResource("4_xmeec")
 start_screen = NodePath("../Start Screen")
+
+[node name="Panel" parent="Play Screen/MarginContainer" index="0"]
+theme_override_styles/panel = ExtResource("4_n44by")
 
 [node name="Options Screen" parent="." node_paths=PackedStringArray("start_screen") instance=ExtResource("3_a6vwh")]
 visible = false
@@ -48,14 +60,19 @@ layout_mode = 1
 script = ExtResource("6_d7ra2")
 start_screen = NodePath("../Start Screen")
 
+[node name="Options Panel" parent="Options Screen/Options Container" index="0"]
+theme_override_styles/panel = ExtResource("4_n44by")
+
 [node name="Confirm Dialog" type="ConfirmationDialog" parent="."]
-transparent_bg = true
+disable_3d = true
 title = "Exit Game"
 initial_position = 4
 size = Vector2i(320, 100)
 unresizable = true
 always_on_top = true
-transparent = true
+popup_window = true
+content_scale_mode = 1
+theme = SubResource("Theme_pu57t")
 ok_button_text = "YES"
 dialog_text = "Are you sure?"
 cancel_button_text = "No"
